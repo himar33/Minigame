@@ -38,6 +38,8 @@ private:
 	SDL_Texture* texture_down;
 	SDL_Texture* texture_up;
 	SDL_Texture* texture_map;
+	SDL_Texture* texture_day;
+	SDL_Texture* texture_night;
 	SDL_Rect rc;
 	Entity Player;
 	int idx_shot;

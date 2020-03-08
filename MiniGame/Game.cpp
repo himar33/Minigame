@@ -53,6 +53,10 @@ bool Game::Init()
 	texture_up = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("mapa.png");
 	texture_map = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("day.png");
+	texture_day = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("night.png");
+	texture_night = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -66,6 +70,8 @@ void Game::Release()
 	SDL_DestroyTexture(texture_up);
 	SDL_DestroyTexture(texture_down);
 	SDL_DestroyTexture(texture_map);
+	SDL_DestroyTexture(texture_day);
+	SDL_DestroyTexture(texture_night);
 	IMG_Quit();
 }
 bool Game::Input()
@@ -172,6 +178,8 @@ void Game::Draw()
 	SDL_Rect strect = { sprite * 88, 0, 88, 176 };
 	SDL_Rect strect_idle = { sprite_idle * 88, 0, 88, 176 };
 	SDL_Rect dstrect = { rc.x, rc.y, 88, 176 };
+	SDL_Rect day_p = { 0, 0, 1024, 334 };
+	SDL_Rect night_p = { 0, 0, 1200, 548 };
 	
 	//Clear rendering target
 	SDL_RenderClear(Renderer);
@@ -191,11 +199,11 @@ void Game::Draw()
 	}
 	if (day == true)
 	{
-		SDL_SetRenderDrawColor(Renderer, 168, 230, 255, 255);
+		SDL_RenderCopy(Renderer, texture_day, NULL, &day_p);
 	}
 	else if (night == true)
 	{
-		SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
+		SDL_RenderCopy(Renderer, texture_night, NULL, &night_p);
 	}
 
 	//Draw background
