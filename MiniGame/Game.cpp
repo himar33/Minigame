@@ -57,6 +57,8 @@ bool Game::Init()
 	texture_day = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("night.png");
 	texture_night = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("negro.png");
+	texture_fade = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -193,6 +195,25 @@ void Game::Draw()
 		}
 		else if (night == true)
 		{
+			while (alpha < 255) {
+				alpha += 5;
+				SDL_Delay(50);
+				SDL_GetTextureAlphaMod(texture_fade, &alpha);
+				SDL_SetTextureAlphaMod(texture_fade, alpha);
+				SDL_RenderCopy(Renderer, texture_fade, NULL, NULL);
+				SDL_RenderPresent(Renderer);
+			}
+			if (alpha == 255) {
+				SDL_Delay(200);
+				while (alpha > 0) {
+					alpha -= 5;
+					SDL_Delay(50);
+					SDL_GetTextureAlphaMod(texture_fade, &alpha);
+					SDL_SetTextureAlphaMod(texture_fade, alpha);
+					SDL_RenderCopy(Renderer, texture_fade, NULL, NULL);
+					SDL_RenderPresent(Renderer);
+				}
+			}
 			night = false;
 			day = true;
 		}
