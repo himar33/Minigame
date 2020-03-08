@@ -28,6 +28,10 @@ int Entity::GetX()
 {
 	return x;
 }
+int Entity::GetY()
+{
+	return y;
+}
 void Entity::ShutDown()
 {
 	is_alive = false;

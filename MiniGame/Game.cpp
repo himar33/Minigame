@@ -90,16 +90,39 @@ bool Game::Input()
 }
 bool Game::Update()
 {
+	bool left, right, up, down;
+
 	//Read Input
-	if (!Input())	return true;
+	if (!Input())  return true;
 
 	//Process Input
 	int fx = 0, fy = 0;
 	if (keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN)	return true;
-	if (keys[SDL_SCANCODE_UP] == KEY_REPEAT)	fy = -1;
-	if (keys[SDL_SCANCODE_DOWN] == KEY_REPEAT)	fy = 1;
-	if (keys[SDL_SCANCODE_LEFT] == KEY_REPEAT)	fx = -1;
-	if (keys[SDL_SCANCODE_RIGHT] == KEY_REPEAT)	fx = 1;
+	if (keys[SDL_SCANCODE_UP] == KEY_REPEAT)	fy = -1; up = true;
+	if (keys[SDL_SCANCODE_DOWN] == KEY_REPEAT)	fy = 1; down = true;
+	if (keys[SDL_SCANCODE_LEFT] == KEY_REPEAT)	fx = -1; left = true;
+	if (keys[SDL_SCANCODE_RIGHT] == KEY_REPEAT)	fx = 1; right = true;
+
+	//map limits
+	if (Player.GetX() > 800 && right == true) {
+		fx = -1;
+		right = false;
+	}
+
+	if (Player.GetX() < 30 && left == true) {
+		fx = 1;
+		left = false;
+	}
+	
+	if (Player.GetY() < 110 && up == true) {
+		fy = 1;
+		up = false;
+	}
+
+	if (Player.GetY() > 730 && down == true) {
+		fy = -1;
+		down = false;
+	}
 	
 	//Logic
 	//Player update
