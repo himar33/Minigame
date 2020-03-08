@@ -125,24 +125,24 @@ bool Game::Update()
 	}
 
 	//box limit
-	if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() < 415 && Player.GetX() > 275 && up == true) {
+	if (Player.GetY() < 315 && Player.GetY() > 305 && Player.GetX() < 415 && Player.GetX() > 275 && up == true) {
 		fy = 1;
-		up = false;
+		
 	}
 
-	else if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() < 415 && Player.GetX() > 275 && down == true) {
+	else if (Player.GetY() < 210 && Player.GetY() > 200 && Player.GetX() < 415 && Player.GetX() > 275 && down == true) {
 		fy = -1;
-		down = false;
+		
 	}
 
-	else if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() < 415 && Player.GetX() > 275 && left== true) {
+	else if (Player.GetY() < 315 && Player.GetY() > 200 && Player.GetX() < 425 && Player.GetX() > 415 && left== true) {
 		fx = 1;
-		left = false;
+		
 	}
 
-	else if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() > 275 && Player.GetX() < 415 && right == true) {
+	else if (Player.GetY() < 315 && Player.GetY() > 200 && Player.GetX() > 265 && Player.GetX() < 275 && right == true) {
 		fx = -1;
-		right = false;
+		
 	}
 
 	
