@@ -28,8 +28,6 @@ public:
 	bool Update();
 	void Draw();
 
-	int alpha = 0;
-
 private:
 	SDL_Window *Window;
 	SDL_Renderer *Renderer;
@@ -42,6 +40,8 @@ private:
 	SDL_Texture* texture_map;
 	SDL_Texture* texture_day;
 	SDL_Texture* texture_night;
+	SDL_Texture* texture_sun;
+	SDL_Texture* texture_moon;
 	
 	SDL_Rect rc;
 	Entity Player;
