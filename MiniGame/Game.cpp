@@ -190,13 +190,13 @@ void Game::Draw()
 	SDL_Rect moon_p = { 20, 20, 50, 50 };
 	SDL_Rect transition = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 	SDL_Rect sans_p = { WINDOW_WIDTH/2 - 240, WINDOW_HEIGHT/2 - 195, 480, 390 };
+	SDL_Rect plant = { 610, 610, 185, 185 };
 	int time = 0;
 	
 	//Clear rendering target
 	SDL_RenderClear(Renderer);
 
-	//TIME CHANGER
-	
+	//Time Condition
 	if (day == true)
 	{
 		SDL_RenderCopy(Renderer, texture_day, NULL, &day_p);
@@ -234,6 +234,7 @@ void Game::Draw()
 	SDL_RenderCopy(Renderer, texture_idle, &strect_idle, &dstrect);
 	}
 
+	//Time Changer
 	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 357 && Player.GetY() > 315 && Player.GetX() > 137 && Player.GetX() < 199) {
 		if (day == true)
@@ -264,6 +265,8 @@ void Game::Draw()
 		}
 		
 	}
+
+	SDL_RenderFillRect(Renderer, &plant);
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
