@@ -108,17 +108,14 @@ bool Game::Update()
 		fx = -1;
 		right = false;
 	}
-
 	else if (Player.GetX() < 30 && left == true) {
 		fx = 1;
 		left = false;
 	}
-	
 	else if (Player.GetY() < 110 && up == true) {
 		fy = 1;
 		up = false;
 	}
-
 	else if (Player.GetY() > 730 && down == true) {
 		fy = -1;
 		down = false;
@@ -127,24 +124,38 @@ bool Game::Update()
 	//box limit
 	if (Player.GetY() < 315 && Player.GetY() > 305 && Player.GetX() < 415 && Player.GetX() > 275 && up == true) {
 		fy = 1;
-		
 	}
-
 	else if (Player.GetY() < 210 && Player.GetY() > 200 && Player.GetX() < 415 && Player.GetX() > 275 && down == true) {
 		fy = -1;
-		
 	}
-
 	else if (Player.GetY() < 315 && Player.GetY() > 200 && Player.GetX() < 425 && Player.GetX() > 415 && left== true) {
 		fx = 1;
-		
 	}
-
 	else if (Player.GetY() < 315 && Player.GetY() > 200 && Player.GetX() > 265 && Player.GetX() < 275 && right == true) {
 		fx = -1;
-		
 	}
 
+	//tent camping limit
+	if (Player.GetY() < 315 && Player.GetY() > 305 && Player.GetX() < 260 && Player.GetX() > 75 && up == true) {
+		fy = 1;
+	}
+	else if (Player.GetY() < 315 && Player.GetY() > 110 && Player.GetX() < 260 && Player.GetX() > 250 && left == true) {
+		fx = 1;
+	}
+	else if (Player.GetY() < 315 && Player.GetY() > 110 && Player.GetX() > 75 && Player.GetX() < 85 && right == true) {
+		fx = -1;
+	}
+
+	//house tent limit
+	if (Player.GetY() < 315 && Player.GetY() > 305 && Player.GetX() < 790 && Player.GetX() > 432 && up == true) {
+		fy = 1;
+	}
+	else if (Player.GetY() < 315 && Player.GetY() > 110 && Player.GetX() < 790 && Player.GetX() > 780 && left == true) {
+		fx = 1;
+	}
+	else if (Player.GetY() < 315 && Player.GetY() > 110 && Player.GetX() > 432 && Player.GetX() < 442 && right == true) {
+		fx = -1;
+	}
 	
 	//Logic
 	//Player update
