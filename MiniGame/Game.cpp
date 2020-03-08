@@ -61,6 +61,8 @@ bool Game::Init()
 	texture_sun = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("moon.png");
 	texture_moon = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("sans.png");
+	texture_sans = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -187,6 +189,8 @@ void Game::Draw()
 	SDL_Rect sun_p = { 20, 20, 50, 50 };
 	SDL_Rect moon_p = { 20, 20, 50, 50 };
 	SDL_Rect transition = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+	SDL_Rect sans_p = { WINDOW_WIDTH/2 - 240, WINDOW_HEIGHT/2 - 195, 480, 390 };
+	int time = 0;
 	
 	//Clear rendering target
 	SDL_RenderClear(Renderer);
@@ -230,15 +234,31 @@ void Game::Draw()
 	SDL_RenderCopy(Renderer, texture_idle, &strect_idle, &dstrect);
 	}
 
-	
+	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 357 && Player.GetY() > 315 && Player.GetX() > 137 && Player.GetX() < 199) {
 		if (day == true)
 		{
+			time = 0;
+			while (time < 1500)
+			{
+				SDL_RenderFillRect(Renderer, &transition);
+				SDL_RenderCopy(Renderer, texture_sans, NULL, &sans_p);
+				time++;
+				SDL_RenderPresent(Renderer);
+			}
 			day = false;
 			night = true;
 		}
 		else if (night == true)
 		{
+			time = 0;
+			while (time < 1500)
+			{
+				SDL_RenderFillRect(Renderer, &transition);
+				SDL_RenderCopy(Renderer, texture_sans, NULL, &sans_p);
+				time++;
+				SDL_RenderPresent(Renderer);
+			}
 			night = false;
 			day = true;
 		}

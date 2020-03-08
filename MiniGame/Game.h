@@ -42,6 +42,7 @@ private:
 	SDL_Texture* texture_night;
 	SDL_Texture* texture_sun;
 	SDL_Texture* texture_moon;
+	SDL_Texture* texture_sans;
 	
 	SDL_Rect rc;
 	Entity Player;
