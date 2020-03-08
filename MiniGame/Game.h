@@ -43,6 +43,7 @@ private:
 	int idx_shot;
 	int png_flag = IMG_INIT_PNG;
 	int ogg_flag = MIX_INIT_OGG;
+	bool night = false, day = true;
 
 	enum KEY_STATE { KEY_IDLE, KEY_DOWN, KEY_REPEAT, KEY_UP	};
 	KEY_STATE keys[MAX_KEYS];

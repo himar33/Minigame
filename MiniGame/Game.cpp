@@ -172,10 +172,31 @@ void Game::Draw()
 	SDL_Rect strect = { sprite * 88, 0, 88, 176 };
 	SDL_Rect strect_idle = { sprite_idle * 88, 0, 88, 176 };
 	SDL_Rect dstrect = { rc.x, rc.y, 88, 176 };
+	
 	//Clear rendering target
 	SDL_RenderClear(Renderer);
 
-	SDL_SetRenderDrawColor(Renderer, 168, 230, 255, 255);
+	//TIME CHANGER
+	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 357 && Player.GetY() > 315 && Player.GetX() > 137 && Player.GetX() < 199) {
+		if (day == true)
+		{
+			day = false;
+			night = true;
+		}
+		else if (night == true)
+		{
+			night = false;
+			day = true;
+		}
+	}
+	if (day == true)
+	{
+		SDL_SetRenderDrawColor(Renderer, 168, 230, 255, 255);
+	}
+	else if (night == true)
+	{
+		SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
+	}
 
 	//Draw background
 	SDL_RenderCopy(Renderer, texture_map, NULL, NULL);
@@ -202,7 +223,8 @@ void Game::Draw()
 		Player.GetRect(&rc.x, &rc.y, &rc.w, &rc.h);
 	SDL_RenderCopy(Renderer, texture_idle, &strect_idle, &dstrect);
 	}
-
+	
+	//SDL_SetRenderDrawColor(Renderer, 168, 230, 255, 255);
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
