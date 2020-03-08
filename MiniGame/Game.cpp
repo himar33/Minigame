@@ -57,8 +57,6 @@ bool Game::Init()
 	texture_day = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("night.png");
 	texture_night = SDL_CreateTextureFromSurface(Renderer, surface);
-	surface = IMG_Load("negro.png");
-	texture_fade = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -182,35 +180,43 @@ void Game::Draw()
 	SDL_Rect dstrect = { rc.x, rc.y, 88, 176 };
 	SDL_Rect day_p = { 0, 0, 1024, 334 };
 	SDL_Rect night_p = { 0, 0, 1200, 548 };
+	SDL_Rect r_fade = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 	
 	//Clear rendering target
 	SDL_RenderClear(Renderer);
 
 	//TIME CHANGER
+
+	SDL_SetRenderDrawBlendMode(Renderer, SDL_BLENDMODE_BLEND);
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 357 && Player.GetY() > 315 && Player.GetX() > 137 && Player.GetX() < 199) {
 		if (day == true)
 		{
+			while (alpha + 5 < 255) {
+				alpha += 5;
+				SDL_Delay(50);
+				SDL_SetRenderDrawColor(Renderer, 255, 255, 255, alpha);
+				SDL_RenderDrawRect(Renderer, &r_fade);
+				SDL_RenderFillRect(Renderer, &r_fade);
+				SDL_RenderPresent(Renderer);
+			}
 			day = false;
 			night = true;
 		}
 		else if (night == true)
 		{
-			while (alpha < 255) {
+			while (alpha + 5 < 255) {
 				alpha += 5;
 				SDL_Delay(50);
-				SDL_GetTextureAlphaMod(texture_fade, &alpha);
-				SDL_SetTextureAlphaMod(texture_fade, alpha);
-				SDL_RenderCopy(Renderer, texture_fade, NULL, NULL);
+				SDL_SetRenderDrawColor(Renderer, 0, 0, 0, alpha);
+				SDL_RenderDrawRect(Renderer, &r_fade);
+				SDL_RenderFillRect(Renderer, &r_fade);
 				SDL_RenderPresent(Renderer);
 			}
 			if (alpha == 255) {
 				SDL_Delay(200);
-				while (alpha > 0) {
+				while (alpha - 5 > 0) {
 					alpha -= 5;
 					SDL_Delay(50);
-					SDL_GetTextureAlphaMod(texture_fade, &alpha);
-					SDL_SetTextureAlphaMod(texture_fade, alpha);
-					SDL_RenderCopy(Renderer, texture_fade, NULL, NULL);
 					SDL_RenderPresent(Renderer);
 				}
 			}
@@ -252,6 +258,8 @@ void Game::Draw()
 		Player.GetRect(&rc.x, &rc.y, &rc.w, &rc.h);
 	SDL_RenderCopy(Renderer, texture_idle, &strect_idle, &dstrect);
 	}
+	
+	//SDL_SetRenderDrawColor(Renderer, 168, 230, 255, 255);
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
