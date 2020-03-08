@@ -252,8 +252,6 @@ void Game::Draw()
 		Player.GetRect(&rc.x, &rc.y, &rc.w, &rc.h);
 	SDL_RenderCopy(Renderer, texture_idle, &strect_idle, &dstrect);
 	}
-	
-	//SDL_SetRenderDrawColor(Renderer, 168, 230, 255, 255);
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
