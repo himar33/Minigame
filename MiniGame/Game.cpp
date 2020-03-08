@@ -90,7 +90,7 @@ bool Game::Input()
 }
 bool Game::Update()
 {
-	bool left, right, up, down;
+	bool left = false, right = false, up = false, down = false;
 
 	//Read Input
 	if (!Input())  return true;
@@ -109,20 +109,42 @@ bool Game::Update()
 		right = false;
 	}
 
-	if (Player.GetX() < 30 && left == true) {
+	else if (Player.GetX() < 30 && left == true) {
 		fx = 1;
 		left = false;
 	}
 	
-	if (Player.GetY() < 110 && up == true) {
+	else if (Player.GetY() < 110 && up == true) {
 		fy = 1;
 		up = false;
 	}
 
-	if (Player.GetY() > 730 && down == true) {
+	else if (Player.GetY() > 730 && down == true) {
 		fy = -1;
 		down = false;
 	}
+
+	//box limit
+	if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() < 415 && Player.GetX() > 275 && up == true) {
+		fy = 1;
+		up = false;
+	}
+
+	else if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() < 415 && Player.GetX() > 275 && down == true) {
+		fy = -1;
+		down = false;
+	}
+
+	else if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() < 415 && Player.GetX() > 275 && left== true) {
+		fx = 1;
+		left = false;
+	}
+
+	else if (Player.GetY() < 315 && Player.GetY() > 285 && Player.GetX() > 275 && Player.GetX() < 415 && right == true) {
+		fx = -1;
+		right = false;
+	}
+
 	
 	//Logic
 	//Player update
