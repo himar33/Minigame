@@ -244,19 +244,17 @@ void Game::Draw()
 		{
 			potato[0][0] = false;
 			potato[0][1] = true;
-
+			life[0] = 2;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true)
 		{
 			potato[1][0] = false;
 			potato[1][1] = true;
-
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == true)
 		{
 			potato[2][0] = false;
 			potato[2][1] = true;
-
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == true)
 		{
@@ -297,32 +295,80 @@ void Game::Draw()
 	}
 
 
-	if (potato[0][1] == true) {
+	if (potato[0][1] == true && life[0] > 0) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[0]);
+	}
+	else if (potato[0][2] == true && life[0] > 0)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[0]);
+	}
+	else if (potato[0][3] == true && life[0] > 0)
+	{
+		SDL_RenderCopy(Renderer, texture_potato3, NULL, &potato_p[0]);
+	}
+	else if (potato[0][4] == true && life[0] > 0)
+	{
+		SDL_RenderCopy(Renderer, texture_potato4, NULL, &potato_p[0]);
+	}
+	else if (potato[0][5] == true && life[0] > 0)
+	{
+		SDL_RenderCopy(Renderer, texture_potato5, NULL, &potato_p[0]);
 	}
 	if (potato[1][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[1]);
 	}
+	else if (potato[1][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[1]);
+	}
 	if (potato[2][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[2]);
+	}
+	else if (potato[2][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[2]);
 	}
 	if (potato[3][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[3]);
 	}
+	else if (potato[3][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[3]);
+	}
 	if (potato[4][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[4]);
+	}
+	else if (potato[4][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[4]);
 	}
 	if (potato[5][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[5]);
 	}
+	else if (potato[5][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[5]);
+	}
 	if (potato[6][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[6]);
+	}
+	else if (potato[6][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[6]);
 	}
 	if (potato[7][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[7]);
 	}
+	else if (potato[7][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[7]);
+	}
 	if (potato[8][1] == true) {
 		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[8]);
+	}
+	else if (potato[8][2] == true)
+	{
+		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[8]);
 	}
 
 	//Draw player
@@ -376,6 +422,27 @@ void Game::Draw()
 			}
 			night = false;
 			day = true;
+		}
+		if (potato[0][1] == true)
+		{
+			potato[0][1] = false;
+			potato[0][2] = true;
+			life[0]--;
+		}
+		else if (potato[0][2] == true)
+		{
+			potato[0][2] = false;
+			potato[0][3] = true;
+		}
+		else if (potato[0][3] == true)
+		{
+			potato[0][3] = false;
+			potato[0][4] = true;
+		}
+		else if (potato[0][4] == true)
+		{
+			potato[0][4] = false;
+			potato[0][5] = true;
 		}
 		
 	}
