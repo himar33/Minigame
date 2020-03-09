@@ -80,6 +80,7 @@ void Game::Release()
 	SDL_DestroyTexture(texture_map);
 	SDL_DestroyTexture(texture_day);
 	SDL_DestroyTexture(texture_night);
+	SDL_DestroyTexture(texture_potato);
 	IMG_Quit();
 }
 bool Game::Input()
@@ -222,18 +223,6 @@ void Game::Draw()
 
 	//Draw potato
 
-	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 670 && Player.GetY() > 610 && Player.GetX() > 610 && Player.GetX() < 670) {
-		if (potato[0] == true)
-		{
-			potato[0] = false;
-			potato[1] = true;
-
-		}
-	}
-
-	if (potato[1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato, NULL, &potato_p[0]);
-	}
 
 	//Draw player
 	
@@ -290,7 +279,21 @@ void Game::Draw()
 		
 	}
 
-	//SDL_RenderFillRect(Renderer, &plant);
+	SDL_RenderFillRect(Renderer, &potato_p[0]);
+
+
+	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44) {
+		if (potato[0] == true)
+		{
+			potato[0] = false;
+			potato[1] = true;
+
+		}
+	}
+
+	if (potato[1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato, NULL, &potato_p[0]);
+	}
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
