@@ -32,23 +32,30 @@ private:
 	SDL_Window *Window;
 	SDL_Renderer *Renderer;
 	SDL_Surface* surface;
+
 	SDL_Texture* texture_idle;
 	SDL_Texture* texture_left;
 	SDL_Texture* texture_right;
 	SDL_Texture* texture_down;
+
 	SDL_Texture* texture_up;
 	SDL_Texture* texture_map;
+
 	SDL_Texture* texture_day;
 	SDL_Texture* texture_night;
+
 	SDL_Texture* texture_sun;
 	SDL_Texture* texture_moon;
+
 	SDL_Texture* texture_sans;
+
 	SDL_Texture* texture_potato1;
 	SDL_Texture* texture_potato2;
 	SDL_Texture* texture_potato3;
 	SDL_Texture* texture_potato4;
 	SDL_Texture* texture_potato5;
 	SDL_Texture* texture_potato6;
+	SDL_Texture* texture_watering;
 	
 	SDL_Rect rc;
 	Entity Player;
@@ -61,6 +68,10 @@ private:
 	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false },
 	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false } };
 	int life[9] = { 2,2,2,2,2,2,2,2,2 };
+
+	int recolection = 0;
+
+	bool watering[9] = { false, false, false, false, false, false, false, false, false };
 
 	enum KEY_STATE { KEY_IDLE, KEY_DOWN, KEY_REPEAT, KEY_UP	};
 	KEY_STATE keys[MAX_KEYS];

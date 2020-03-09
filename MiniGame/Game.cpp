@@ -75,6 +75,8 @@ bool Game::Init()
 	texture_potato5 = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("Patata_6.png");
 	texture_potato6 = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("watering.png");
+	texture_watering = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -96,6 +98,7 @@ void Game::Release()
 	SDL_DestroyTexture(texture_potato4);
 	SDL_DestroyTexture(texture_potato5);
 	SDL_DestroyTexture(texture_potato6);
+	SDL_DestroyTexture(texture_watering);
 	IMG_Quit();
 }
 bool Game::Input()
@@ -216,6 +219,8 @@ void Game::Draw()
 	    {610, 730, 60, 60}, {670, 730, 60, 60}, {730, 730, 60, 60} 
 	};
 
+	//Define font
+
 	int time = 0;
 	
 	//Clear rendering target
@@ -258,21 +263,64 @@ void Game::Draw()
 			potato[0][0] = false;
 			potato[0][1] = true;
 		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == false && potato[0][5] == false)
+		{
+			watering[0] = true;
+		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][5] == true)
+		{
+			potato[0][5] = false;
+			potato[0][0] = true;
+			recolection++;
+			life[0] = 2;
+		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true)
 		{
 			potato[1][0] = false;
 			potato[1][1] = true;
+		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == false && potato[1][5] == false)
+		{
+			watering[1] = true;
+		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][5] == true)
+		{
+			potato[1][5] = false;
+			potato[1][0] = true;
+			recolection++;
+			life[1] = 2;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == true)
 		{
 			potato[2][0] = false;
 			potato[2][1] = true;
 		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == false && potato[2][5] == false)
+		{
+			watering[2] = true;
+		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][5] == true)
+		{
+			potato[2][5] = false;
+			potato[2][0] = true;
+			recolection++;
+			life[2] = 2;
+		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == true)
 		{
 			potato[3][0] = false;
 			potato[3][1] = true;
-
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == false && potato[3][5] == false)
+		{
+			watering[3] = true;
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][5] == true)
+		{
+			potato[3][5] = false;
+			potato[3][0] = true;
+			recolection++;
+			life[3] = 2;
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == true)
 		{
@@ -280,32 +328,94 @@ void Game::Draw()
 			potato[4][1] = true;
 
 		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == false && potato[4][5] == false)
+		{
+			watering[4] = true;
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][5] == true)
+		{
+			potato[4][5] = false;
+			potato[4][0] = true;
+			recolection++;
+			life[4] = 2;
+		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == true)
 		{
 			potato[5][0] = false;
 			potato[5][1] = true;
 
 		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == false && potato[5][5] == false)
+		{
+			watering[5] = true;
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][5] == true)
+		{
+			potato[5][5] = false;
+			potato[5][0] = true;
+			recolection++;
+			life[5] = 2;
+		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == true)
 		{
 			potato[6][0] = false;
 			potato[6][1] = true;
-
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == false && potato[6][5] == false)
+		{
+			watering[6] = true;
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][5] == true)
+		{
+			potato[6][5] = false;
+			potato[6][0] = true;
+			recolection++;
+			life[6] = 2;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == true)
 		{
 			potato[7][0] = false;
 			potato[7][1] = true;
-
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == false && potato[7][5] == false)
+		{
+			watering[7] = true;
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][5] == true)
+		{
+			potato[7][5] = false;
+			potato[7][0] = true;
+			recolection++;
+			life[7] = 2;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == true)
 		{
 			potato[8][0] = false;
 			potato[8][1] = true;
-
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == false && potato[8][5] == false)
+		{
+			watering[8] = true;
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][5] == true)
+		{
+			potato[8][5] = false;
+			potato[8][0] = true;
+			recolection++;
+			life[8] = 2;
 		}
 	}
 
+	//Draw watering
+	for (int i = 0; i < 9; i++)
+	{
+		if (watering[i] == true)
+		{
+			SDL_RenderCopy(Renderer, texture_watering, NULL, &potato_p[i]);
+		}
+	}
+
+	//Draw potatoes
 	for (int i = 0; i < 9; i++)
 	{
 		if (potato[i][1] == true && life[i] > 0) {
@@ -396,28 +506,56 @@ void Game::Draw()
 			{
 				potato[i][1] = false;
 				potato[i][2] = true;
+				if (watering[i] == true)
+				{
+					life[i]++;
+				}
 				life[i]--;
+				watering[i] = false;
 			}
 			else if (potato[i][2] == true)
 			{
 				potato[i][2] = false;
 				potato[i][3] = true;
+				if (watering[i] == true)
+				{
+					life[i]++;
+				}
 				life[i]--;
+				watering[i] = false;
 			}
 			else if (potato[i][3] == true)
 			{
 				potato[i][3] = false;
 				potato[i][4] = true;
+				if (watering[i] == true)
+				{
+					life[i]++;
+				}
 				life[i]--;
+				watering[i] = false;
 			}
 			else if (potato[i][4] == true)
 			{
 				potato[i][4] = false;
 				potato[i][5] = true;
+				if (watering[i] == true)
+				{
+					life[i]++;
+				}
 				life[i]--;
+				watering[i] = false;
+			}
+			else if (potato[i][5] == true)
+			{
+				if (watering[i] == true)
+				{
+					life[i]++;
+				}
+				life[i]--;
+				watering[i] = false;
 			}
 		}
-
 	}
 
 
