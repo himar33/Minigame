@@ -63,8 +63,18 @@ bool Game::Init()
 	texture_moon = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("sans.png");
 	texture_sans = SDL_CreateTextureFromSurface(Renderer, surface);
-	surface = IMG_Load("patata.png");
-	texture_potato = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("Patata_1.png");
+	texture_potato1 = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("Patata_2.png");
+	texture_potato2 = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("Patata_3.png");
+	texture_potato3 = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("Patata_4.png");
+	texture_potato4 = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("Patata_5.png");
+	texture_potato5 = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("Patata_6.png");
+	texture_potato6 = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -80,7 +90,12 @@ void Game::Release()
 	SDL_DestroyTexture(texture_map);
 	SDL_DestroyTexture(texture_day);
 	SDL_DestroyTexture(texture_night);
-	SDL_DestroyTexture(texture_potato);
+	SDL_DestroyTexture(texture_potato1);
+	SDL_DestroyTexture(texture_potato2);
+	SDL_DestroyTexture(texture_potato3);
+	SDL_DestroyTexture(texture_potato4);
+	SDL_DestroyTexture(texture_potato5);
+	SDL_DestroyTexture(texture_potato6);
 	IMG_Quit();
 }
 bool Game::Input()
@@ -223,6 +238,92 @@ void Game::Draw()
 
 	//Draw potato
 
+	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN){
+
+		if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == true)
+		{
+			potato[0][0] = false;
+			potato[0][1] = true;
+
+		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true)
+		{
+			potato[1][0] = false;
+			potato[1][1] = true;
+
+		}
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == true)
+		{
+			potato[2][0] = false;
+			potato[2][1] = true;
+
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == true)
+		{
+			potato[3][0] = false;
+			potato[3][1] = true;
+
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == true)
+		{
+			potato[4][0] = false;
+			potato[4][1] = true;
+
+		}
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == true)
+		{
+			potato[5][0] = false;
+			potato[5][1] = true;
+
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == true)
+		{
+			potato[6][0] = false;
+			potato[6][1] = true;
+
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == true)
+		{
+			potato[7][0] = false;
+			potato[7][1] = true;
+
+		}
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == true)
+		{
+			potato[8][0] = false;
+			potato[8][1] = true;
+
+		}
+	}
+
+
+	if (potato[0][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[0]);
+	}
+	if (potato[1][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[1]);
+	}
+	if (potato[2][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[2]);
+	}
+	if (potato[3][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[3]);
+	}
+	if (potato[4][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[4]);
+	}
+	if (potato[5][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[5]);
+	}
+	if (potato[6][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[6]);
+	}
+	if (potato[7][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[7]);
+	}
+	if (potato[8][1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[8]);
+	}
 
 	//Draw player
 	
@@ -279,21 +380,8 @@ void Game::Draw()
 		
 	}
 
-	SDL_RenderFillRect(Renderer, &potato_p[0]);
+	//SDL_RenderFillRect(Renderer, &potato_p[0]);
 
-
-	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44) {
-		if (potato[0] == true)
-		{
-			potato[0] = false;
-			potato[1] = true;
-
-		}
-	}
-
-	if (potato[1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato, NULL, &potato_p[0]);
-	}
 
 	//Update screen
 	SDL_RenderPresent(Renderer);

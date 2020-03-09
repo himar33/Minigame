@@ -43,7 +43,12 @@ private:
 	SDL_Texture* texture_sun;
 	SDL_Texture* texture_moon;
 	SDL_Texture* texture_sans;
-	SDL_Texture* texture_potato;
+	SDL_Texture* texture_potato1;
+	SDL_Texture* texture_potato2;
+	SDL_Texture* texture_potato3;
+	SDL_Texture* texture_potato4;
+	SDL_Texture* texture_potato5;
+	SDL_Texture* texture_potato6;
 	
 	SDL_Rect rc;
 	Entity Player;
@@ -51,7 +56,10 @@ private:
 	int png_flag = IMG_INIT_PNG;
 	int ogg_flag = MIX_INIT_OGG;
 	bool night = false, day = true;
-	bool potato[7] = { true, false, false, false, false, false, false };
+	bool potato[9][7] = { 
+	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false },
+	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false },
+	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false } };
 
 	enum KEY_STATE { KEY_IDLE, KEY_DOWN, KEY_REPEAT, KEY_UP	};
 	KEY_STATE keys[MAX_KEYS];
