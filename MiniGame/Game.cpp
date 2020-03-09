@@ -237,17 +237,18 @@ void Game::Draw()
 	SDL_RenderCopy(Renderer, texture_map, NULL, NULL);
 
 	//Draw potato
-
-	if (life <= 0)
+	for (int i = 0; i < 9; i++)
 	{
-		potato[0][0] = true;
-		potato[0][1] = false;
-		potato[0][2] = false;
-		potato[0][3] = false;
-		potato[0][4] = false;
-		potato[0][5] = false;
-		potato[0][6] = false;
-		life[0] = 2;
+		if (life[i] <= 0)
+		{
+			potato[i][0] = true;
+			potato[i][1] = false;
+			potato[i][2] = false;
+			potato[i][3] = false;
+			potato[i][4] = false;
+			potato[i][5] = false;
+			life[i] = 2;
+		}
 	}
 
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN){
