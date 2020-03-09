@@ -305,82 +305,37 @@ void Game::Draw()
 		}
 	}
 
+	for (int i = 0; i < 9; i++)
+	{
+		if (potato[i][1] == true && life[i] > 0) {
+			SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[i]);
+		}
+	}
+	for (int i = 0; i < 9; i++)
+	{
+		if (potato[i][2] == true && life[i] > 0) {
+			SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[i]);
+		}
+	}
+	for (int i = 0; i < 9; i++)
+	{
+		if (potato[i][3] == true && life[i] > 0) {
+			SDL_RenderCopy(Renderer, texture_potato3, NULL, &potato_p[i]);
+		}
+	}
+	for (int i = 0; i < 9; i++)
+	{
+		if (potato[i][4] == true && life[i] > 0) {
+			SDL_RenderCopy(Renderer, texture_potato4, NULL, &potato_p[i]);
+		}
+	}
+	for (int i = 0; i < 9; i++)
+	{
+		if (potato[i][5] == true && life[i] > 0) {
+			SDL_RenderCopy(Renderer, texture_potato5, NULL, &potato_p[i]);
+		}
+	}
 
-	if (potato[0][1] == true && life[0] > 0) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[0]);
-	}
-	else if (potato[0][2] == true && life[0] > 0)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[0]);
-	}
-	else if (potato[0][3] == true && life[0] > 0)
-	{
-		SDL_RenderCopy(Renderer, texture_potato3, NULL, &potato_p[0]);
-	}
-	else if (potato[0][4] == true && life[0] > 0)
-	{
-		SDL_RenderCopy(Renderer, texture_potato4, NULL, &potato_p[0]);
-	}
-	else if (potato[0][5] == true && life[0] > 0)
-	{
-		SDL_RenderCopy(Renderer, texture_potato5, NULL, &potato_p[0]);
-	}
-	if (potato[1][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[1]);
-	}
-	else if (potato[1][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[1]);
-	}
-	if (potato[2][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[2]);
-	}
-	else if (potato[2][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[2]);
-	}
-	if (potato[3][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[3]);
-	}
-	else if (potato[3][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[3]);
-	}
-	if (potato[4][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[4]);
-	}
-	else if (potato[4][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[4]);
-	}
-	if (potato[5][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[5]);
-	}
-	else if (potato[5][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[5]);
-	}
-	if (potato[6][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[6]);
-	}
-	else if (potato[6][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[6]);
-	}
-	if (potato[7][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[7]);
-	}
-	else if (potato[7][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[7]);
-	}
-	if (potato[8][1] == true) {
-		SDL_RenderCopy(Renderer, texture_potato1, NULL, &potato_p[8]);
-	}
-	else if (potato[8][2] == true)
-	{
-		SDL_RenderCopy(Renderer, texture_potato2, NULL, &potato_p[8]);
-	}
 
 	//Draw player
 	
@@ -434,31 +389,34 @@ void Game::Draw()
 			night = false;
 			day = true;
 		}
-		if (potato[0][1] == true)
+		for (int i = 0; i < 9; i++)
 		{
-			potato[0][1] = false;
-			potato[0][2] = true;
-			life[0]--;
+			if (potato[i][1] == true)
+			{
+				potato[i][1] = false;
+				potato[i][2] = true;
+				life[i]--;
+			}
+			else if (potato[i][2] == true)
+			{
+				potato[i][2] = false;
+				potato[i][3] = true;
+				life[i]--;
+			}
+			else if (potato[i][3] == true)
+			{
+				potato[i][3] = false;
+				potato[i][4] = true;
+				life[i]--;
+			}
+			else if (potato[i][4] == true)
+			{
+				potato[i][4] = false;
+				potato[i][5] = true;
+				life[i]--;
+			}
 		}
-		else if (potato[0][2] == true)
-		{
-			potato[0][2] = false;
-			potato[0][3] = true;
-			life[0]--;
-		}
-		else if (potato[0][3] == true)
-		{
-			potato[0][3] = false;
-			potato[0][4] = true;
-			life[0]--;
-		}
-		else if (potato[0][4] == true)
-		{
-			potato[0][4] = false;
-			potato[0][5] = true;
-			life[0]--;
-		}
-		
+
 	}
 
 
