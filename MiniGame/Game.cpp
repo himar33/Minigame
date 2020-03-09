@@ -63,6 +63,8 @@ bool Game::Init()
 	texture_moon = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("sans.png");
 	texture_sans = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("patata.png");
+	texture_potato = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -191,6 +193,13 @@ void Game::Draw()
 	SDL_Rect transition = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 	SDL_Rect sans_p = { WINDOW_WIDTH/2 - 240, WINDOW_HEIGHT/2 - 195, 480, 390 };
 	SDL_Rect plant = { 610, 610, 185, 185 };
+	SDL_Rect potato_p[9] = 
+	{ 
+		{610, 610, 60, 60}, {670, 610, 60, 60}, {730, 610, 60, 60},
+	    {610, 670, 60, 60}, {670, 670, 60, 60}, {730, 670, 60, 60},
+	    {610, 730, 60, 60}, {670, 730, 60, 60}, {730, 730, 60, 60} 
+	};
+
 	int time = 0;
 	
 	//Clear rendering target
@@ -210,6 +219,21 @@ void Game::Draw()
 
 	//Draw background
 	SDL_RenderCopy(Renderer, texture_map, NULL, NULL);
+
+	//Draw potato
+
+	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 670 && Player.GetY() > 610 && Player.GetX() > 610 && Player.GetX() < 670) {
+		if (potato[0] == true)
+		{
+			potato[0] = false;
+			potato[1] = true;
+
+		}
+	}
+
+	if (potato[1] == true) {
+		SDL_RenderCopy(Renderer, texture_potato, NULL, &potato_p[0]);
+	}
 
 	//Draw player
 	
@@ -235,7 +259,7 @@ void Game::Draw()
 	}
 
 	//Time Changer
-	SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
+	//SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 357 && Player.GetY() > 315 && Player.GetX() > 137 && Player.GetX() < 199) {
 		if (day == true)
 		{
@@ -266,7 +290,7 @@ void Game::Draw()
 		
 	}
 
-	SDL_RenderFillRect(Renderer, &plant);
+	//SDL_RenderFillRect(Renderer, &plant);
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
