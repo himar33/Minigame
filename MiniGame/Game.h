@@ -3,8 +3,10 @@
 #include "SDL/include/SDL.h"
 #include "SDL_image/include/SDL_image.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "SDL_ttf/include/SDL_ttf.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib")
+#pragma comment( lib, "SDL_ttf/libx86/SDL2_ttf.lib")
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
@@ -69,7 +71,17 @@ private:
 	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false } };
 	int life[9] = { 2,2,2,2,2,2,2,2,2 };
 
+	//UI
+	TTF_Font* tipografy;
+	SDL_Color White;
+	SDL_Color Black;
+	SDL_Surface* surfaceMessage;
+	SDL_Texture* Message;
+	SDL_Texture* Message_night;
+	SDL_Rect Message_rect;
 	int recolection = 0;
+	int actual = -1;
+	
 
 	bool watering[9] = { false, false, false, false, false, false, false, false, false };
 

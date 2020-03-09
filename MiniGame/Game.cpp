@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <math.h>
+#include <sstream>
 
 Game::Game() {}
 Game::~Game(){}
@@ -38,6 +39,14 @@ bool Game::Init()
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 
 	//Music
+
+
+	//Font
+	TTF_Init();
+	tipografy = TTF_OpenFont("munro.ttf", 30);
+	Black = { 0, 0, 0 };
+	White = { 255, 255, 255 };
+
 
 	//Images and surface
 	IMG_Init(png_flag);
@@ -99,6 +108,8 @@ void Game::Release()
 	SDL_DestroyTexture(texture_potato5);
 	SDL_DestroyTexture(texture_potato6);
 	SDL_DestroyTexture(texture_watering);
+	Mix_Quit();
+	TTF_Quit();
 	IMG_Quit();
 }
 bool Game::Input()
@@ -193,6 +204,18 @@ bool Game::Update()
 	//Logic
 	//Player update
 	Player.Move(fx, fy);
+
+	//Recolection update
+	std::stringstream s;
+	s << "Patatas: " << recolection;
+	if (actual < recolection)
+	{
+		actual++;
+		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), Black);
+		Message = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), White);
+		Message_night = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+	}
 		
 	return false;
 }
@@ -220,6 +243,7 @@ void Game::Draw()
 	};
 
 	//Define font
+	SDL_Rect Message_rect = { 100, 20, 100, 50 };
 
 	int time = 0;
 	
@@ -556,6 +580,15 @@ void Game::Draw()
 				watering[i] = false;
 			}
 		}
+	}
+	//Interface
+	if (day == true)
+	{
+		SDL_RenderCopy(Renderer, Message, NULL, &Message_rect);
+	}
+	if (night == true)
+	{
+		SDL_RenderCopy(Renderer, Message_night, NULL, &Message_rect);
 	}
 
 
