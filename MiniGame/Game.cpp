@@ -238,13 +238,24 @@ void Game::Draw()
 
 	//Draw potato
 
+	if (life <= 0)
+	{
+		potato[0][0] = true;
+		potato[0][1] = false;
+		potato[0][2] = false;
+		potato[0][3] = false;
+		potato[0][4] = false;
+		potato[0][5] = false;
+		potato[0][6] = false;
+		life[0] = 2;
+	}
+
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN){
 
 		if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == true)
 		{
 			potato[0][0] = false;
 			potato[0][1] = true;
-			life[0] = 2;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true)
 		{
@@ -433,21 +444,22 @@ void Game::Draw()
 		{
 			potato[0][2] = false;
 			potato[0][3] = true;
+			life[0]--;
 		}
 		else if (potato[0][3] == true)
 		{
 			potato[0][3] = false;
 			potato[0][4] = true;
+			life[0]--;
 		}
 		else if (potato[0][4] == true)
 		{
 			potato[0][4] = false;
 			potato[0][5] = true;
+			life[0]--;
 		}
 		
 	}
-
-	//SDL_RenderFillRect(Renderer, &potato_p[0]);
 
 
 	//Update screen
