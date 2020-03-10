@@ -36,10 +36,18 @@ bool Game::Init()
 
 	//Start with Audio
 	Mix_Init(ogg_flag);
-	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
+	Mix_OpenAudio(20000, MIX_DEFAULT_FORMAT, 2, 1024);
 
 	//Music
-
+	sback = Mix_LoadWAV("fondo.wav");
+	Mix_PlayChannel(-1, sback, -1);
+	plantar = Mix_LoadWAV("plantar.wav");
+	regar = Mix_LoadWAV("regar.wav");
+	recoger = Mix_LoadWAV("recoger.wav");
+	reloj = Mix_LoadWAV("reloj.wav");
+	cash = Mix_LoadWAV("cash.wav");
+	buy = Mix_LoadWAV("buy.wav");
+	victory = Mix_LoadWAV("victory.wav");
 
 	//Font
 	TTF_Init();
@@ -259,7 +267,7 @@ bool Game::Update()
 	{
 		int time = 0;
 		SDL_Rect win_rect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
-		SDL_Rect text_rect = { WINDOW_WIDTH/2 - 150,  WINDOW_HEIGHT/2 - 25, 400, 50 };
+		SDL_Rect text_rect = { WINDOW_WIDTH/2 - 200,  WINDOW_HEIGHT/2 - 25, 400, 50 };
 		std::stringstream t;
 		t << "Congratulations, you win!!!";
 		surfaceMessage = TTF_RenderText_Solid(tipografy, t.str().c_str(), White);
@@ -349,6 +357,7 @@ void Game::Draw()
 
 		if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == true && seed_r > 0)
 		{
+			Mix_PlayChannel(-1, plantar, 0);
 			potato[0][0] = false;
 			potato[0][1] = true;
 			seed_a -= 2;
@@ -356,10 +365,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == false && potato[0][5] == false)
 		{
+			Mix_PlayChannel(-1, regar, 0);
 			watering[0] = true;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][5] == true)
 		{
+			Mix_PlayChannel(-1, recoger, 0);
 			potato[0][5] = false;
 			potato[0][0] = true;
 			recolection++;
@@ -367,6 +378,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true && seed_r > 0)
 		{
+			Mix_PlayChannel(-1, plantar, 0);
 			potato[1][0] = false;
 			potato[1][1] = true;
 			seed_a -= 2;
@@ -374,10 +386,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == false && potato[1][5] == false)
 		{
+			Mix_PlayChannel(-1, regar, 0);
 			watering[1] = true;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][5] == true)
 		{
+			Mix_PlayChannel(-1, recoger, 0);
 			potato[1][5] = false;
 			potato[1][0] = true;
 			recolection++;
@@ -385,6 +399,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == true && seed_r > 0)
 		{
+			Mix_PlayChannel(-1, plantar, 0);
 			potato[2][0] = false;
 			potato[2][1] = true;
 			seed_a -= 2;
@@ -392,10 +407,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == false && potato[2][5] == false)
 		{
+			Mix_PlayChannel(-1, regar, 0);
 			watering[2] = true;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][5] == true)
 		{
+			Mix_PlayChannel(-1, recoger, 0);
 			potato[2][5] = false;
 			potato[2][0] = true;
 			recolection++;
@@ -403,6 +420,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == true && seed_r > 0)
 		{
+			Mix_PlayChannel(-1, plantar, 0);
 			potato[3][0] = false;
 			potato[3][1] = true;
 			seed_a -= 2;
@@ -410,10 +428,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == false && potato[3][5] == false)
 		{
+			Mix_PlayChannel(-1, regar, 0);
 			watering[3] = true;
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][5] == true)
 		{
+			Mix_PlayChannel(-1, recoger, 0);
 			potato[3][5] = false;
 			potato[3][0] = true;
 			recolection++;
@@ -421,6 +441,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == true && seed_r > 0)
 		{
+			Mix_PlayChannel(-1, plantar, 0);
 			potato[4][0] = false;
 			potato[4][1] = true;
 			seed_a -= 2;
@@ -429,10 +450,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == false && potato[4][5] == false)
 		{
+			Mix_PlayChannel(-1, regar, 0);
 			watering[4] = true;
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][5] == true)
 		{
+			Mix_PlayChannel(-1, recoger, 0);
 			potato[4][5] = false;
 			potato[4][0] = true;
 			recolection++;
@@ -440,6 +463,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == true && seed_r > 0)
 		{
+			Mix_PlayChannel(-1, plantar, 0);
 			potato[5][0] = false;
 			potato[5][1] = true;
 			seed_a -= 2;
@@ -448,10 +472,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == false && potato[5][5] == false)
 		{
+		Mix_PlayChannel(-1, regar, 0);
 			watering[5] = true;
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][5] == true)
 		{
+		Mix_PlayChannel(-1, recoger, 0);
 			potato[5][5] = false;
 			potato[5][0] = true;
 			recolection++;
@@ -459,6 +485,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == true && seed_r > 0)
 		{
+		Mix_PlayChannel(-1, plantar, 0);
 			potato[6][0] = false;
 			potato[6][1] = true;
 			seed_a -= 2;
@@ -466,10 +493,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == false && potato[6][5] == false)
 		{
+		Mix_PlayChannel(-1, regar, 0);
 			watering[6] = true;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][5] == true)
 		{
+		Mix_PlayChannel(-1, recoger, 0);
 			potato[6][5] = false;
 			potato[6][0] = true;
 			recolection++;
@@ -477,6 +506,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == true && seed_r > 0)
 		{
+		Mix_PlayChannel(-1, plantar, 0);
 			potato[7][0] = false;
 			potato[7][1] = true;
 			seed_a -= 2;
@@ -484,10 +514,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == false && potato[7][5] == false)
 		{
+		Mix_PlayChannel(-1, regar, 0);
 			watering[7] = true;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][5] == true)
 		{
+		Mix_PlayChannel(-1, recoger, 0);
 			potato[7][5] = false;
 			potato[7][0] = true;
 			recolection++;
@@ -495,6 +527,7 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == true && seed_r > 0)
 		{
+		Mix_PlayChannel(-1, plantar, 0);
 			potato[8][0] = false;
 			potato[8][1] = true;
 			seed_a -= 2;
@@ -502,10 +535,12 @@ void Game::Draw()
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == false && potato[8][5] == false)
 		{
+		Mix_PlayChannel(-1, regar, 0);
 			watering[8] = true;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][5] == true)
 		{
+		Mix_PlayChannel(-1, recoger, 0);
 			potato[8][5] = false;
 			potato[8][0] = true;
 			recolection++;
@@ -524,17 +559,19 @@ void Game::Draw()
 	}
 	if (keys[SDL_SCANCODE_1] == KEY_DOWN && shop == true)
 	{
-		if (recolection > 0)
+		if (recolection > 0)	
 		{
-			actual -= 2;
-			recolection--;
-			m_r += 4;
+			Mix_PlayChannel(-1, cash, 0);
+			m_r += 4 * recolection;
+			actual = -1;
+			recolection = 0;
 		}
 	}
 	if (keys[SDL_SCANCODE_3] == KEY_DOWN && shop == true)
 	{
 		if (m_r >= 1)
 		{
+			Mix_PlayChannel(-1, buy, 0);
 			m_a -= 2;
 			seed_r++;
 			m_r--;
@@ -544,6 +581,7 @@ void Game::Draw()
 	{
 		if (m_r >= 100)
 		{
+			Mix_PlayChannel(-1, victory, 0);
 			m_a -= 101;
 			m_r -= 100;
 			win = true;
@@ -620,8 +658,9 @@ void Game::Draw()
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN && Player.GetY() < 357 && Player.GetY() > 315 && Player.GetX() > 137 && Player.GetX() < 199) {
 		if (day == true)
 		{
+			Mix_PlayChannel(-1, reloj, 0);
 			time = 0;
-			while (time < 1500)
+			while (time < 1600)
 			{
 				SDL_RenderFillRect(Renderer, &transition);
 				SDL_RenderCopy(Renderer, texture_sans, NULL, &sans_p);
@@ -633,8 +672,9 @@ void Game::Draw()
 		}
 		else if (night == true)
 		{
+			Mix_PlayChannel(-1, reloj, 0);
 			time = 0;
-			while (time < 1500)
+			while (time < 1600)
 			{
 				SDL_RenderFillRect(Renderer, &transition);
 				SDL_RenderCopy(Renderer, texture_sans, NULL, &sans_p);

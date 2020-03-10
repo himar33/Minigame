@@ -93,11 +93,21 @@ private:
 	int actual = -1;
 	int seed_a = -1;
 	int seed_r = 0;
-	int m_a = 99;
-	int m_r = 100;
+	int m_a = 4;
+	int m_r = 5;
 
 	//Win
 	bool win = false;
+
+	//Music
+	Mix_Chunk* sback;
+	Mix_Chunk* plantar;
+	Mix_Chunk* regar;
+	Mix_Chunk* recoger;
+	Mix_Chunk* reloj;
+	Mix_Chunk* cash;
+	Mix_Chunk* buy;
+	Mix_Chunk* victory;
 
 	bool watering[9] = { false, false, false, false, false, false, false, false, false };
 
