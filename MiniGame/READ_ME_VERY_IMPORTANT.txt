@@ -25,11 +25,11 @@ Mechanics:
 
 Controls:
 
-    Espace bar: go to sleep, enter the store, plant a seed, water a potato *
+    Space bar: go to sleep, enter the store, plant a seed, water a potato *
 
     Arrows: movement
 
-    Escape: exit the game or the store
+    Escape: exit the game, the store or the menu
 
     1: sell all your potatoes while on the store
 
@@ -37,4 +37,6 @@ Controls:
 
     3: buy seeds one by one while on the store
 
-* You will have to be close to the camping tent, the store or the planting area in order for the Espace bar to work
+   'M': Menu
+
+* You will have to be close to the camping tent, the store or the planting area in order for the Space bar to work

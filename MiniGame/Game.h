@@ -88,6 +88,7 @@ private:
 	SDL_Texture* m_day;
 	SDL_Texture* texture_coin;
 	SDL_Texture* text;
+	SDL_Texture* texture_control;
 	SDL_Rect Message_rect;
 	int recolection = 0;
 	int actual = -1;
@@ -108,6 +109,9 @@ private:
 	Mix_Chunk* cash;
 	Mix_Chunk* buy;
 	Mix_Chunk* victory;
+
+	//Menu
+	bool menu = false;
 
 	bool watering[9] = { false, false, false, false, false, false, false, false, false };
 

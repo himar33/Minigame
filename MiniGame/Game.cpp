@@ -98,9 +98,12 @@ bool Game::Init()
 	texture_tienda = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("coin.png");
 	texture_coin = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("control.png");
+	texture_control = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
+
 void Game::Release()
 {
 	//Clean up all SDL initialized subsystems
@@ -128,6 +131,7 @@ void Game::Release()
 	SDL_DestroyTexture(seeds_night);
 	SDL_DestroyTexture(m_day);
 	SDL_DestroyTexture(m_night);
+	SDL_DestroyTexture(texture_control);
 	Mix_Quit();
 	TTF_Quit();
 	IMG_Quit();
@@ -162,7 +166,7 @@ bool Game::Update()
 	//Process Input
 	int fx = 0, fy = 0;
 	if (keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN) {
-		if (shop == false)
+		if (shop == false && menu == false)
 		{
 			return true;
 		}
@@ -266,10 +270,11 @@ bool Game::Update()
 	if (win == true)
 	{
 		int time = 0;
+		Uint32 sec = SDL_GetTicks() / 1000;
 		SDL_Rect win_rect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
-		SDL_Rect text_rect = { WINDOW_WIDTH/2 - 200,  WINDOW_HEIGHT/2 - 25, 400, 50 };
+		SDL_Rect text_rect = { WINDOW_WIDTH/2 - 275,  WINDOW_HEIGHT/2 - 25, 550, 50 };
 		std::stringstream t;
-		t << "Congratulations, you win!!!";
+		t << "Congratulations, you win!!! Your time: " << sec << " sec";
 		surfaceMessage = TTF_RenderText_Solid(tipografy, t.str().c_str(), White);
 		text = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
 		while (time < 2000)
@@ -546,7 +551,7 @@ void Game::Draw()
 			recolection++;
 			life[8] = 2;
 		}
-		else if (Player.GetY() < 500 - 150 && Player.GetY() > 430 - 150 && Player.GetX() > 710 - 44 && Player.GetX() < 780 - 44)
+		else if (Player.GetY() < 500 - 150 && Player.GetY() > 430 - 150 && Player.GetX() > 710 - 44 && Player.GetX() < 780 - 44 && menu == false)
 		{
 			shop = true;
 		}
@@ -587,6 +592,8 @@ void Game::Draw()
 			win = true;
 		}
 	}
+
+	
 
 	//Draw watering
 	for (int i = 0; i < 9; i++)
@@ -743,6 +750,21 @@ void Game::Draw()
 	}
 
 	//Interface
+
+	//Menu key states
+	if (keys[SDL_SCANCODE_M] == KEY_DOWN && shop == false)
+	{
+		menu = true;
+	}
+	if (menu == true)
+	{
+		SDL_Rect control_rect = { 150, 200, 601, 359 };
+		SDL_RenderCopy(Renderer, texture_control, NULL, &control_rect);
+		if (keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN)
+		{
+			menu = false;
+		}
+	}
 
 	//Draw shop
 	if (shop == true)
