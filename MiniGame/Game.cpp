@@ -207,7 +207,7 @@ bool Game::Update()
 
 	//Recolection update
 	std::stringstream s;
-	s << "Patatas: " << recolection;
+	s << "Potatoes: " << recolection;
 	if (actual < recolection)
 	{
 		actual++;
