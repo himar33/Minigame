@@ -13,7 +13,7 @@ bool Game::Init()
 		return false;
 	}
 	//Create our window: title, x, y, w, h, flags
-	Window = SDL_CreateWindow("Spaceship: arrow keys + space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+	Window = SDL_CreateWindow("Sans Drew Valley", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
 	if (Window == NULL)
 	{
 		SDL_Log("Unable to create window: %s", SDL_GetError());
@@ -43,7 +43,7 @@ bool Game::Init()
 
 	//Font
 	TTF_Init();
-	tipografy = TTF_OpenFont("munro.ttf", 30);
+	tipografy = TTF_OpenFont("munro.ttf", 18);
 	Black = { 0, 0, 0 };
 	White = { 255, 255, 255 };
 
@@ -86,6 +86,8 @@ bool Game::Init()
 	texture_potato6 = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("watering.png");
 	texture_watering = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("tienda.png");
+	texture_tienda = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -210,6 +212,8 @@ bool Game::Update()
 	p << "Potatoes: " << recolection;
 	std::stringstream s;
 	s << "Seeds: " << seed_r;
+	std::stringstream m;
+	m << m_r;
 	if (actual < recolection)
 	{
 		actual++;
@@ -225,6 +229,14 @@ bool Game::Update()
 		seeds_night = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
 		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), Black);
 		seeds_day = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+	}
+	if (m_a < m_r)
+	{
+		m_a++;
+		surfaceMessage = TTF_RenderText_Solid(tipografy, m.str().c_str(), White);
+		m_night = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+		surfaceMessage = TTF_RenderText_Solid(tipografy, m.str().c_str(), Black);
+		m_day = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
 	}
 		
 	return false;
@@ -253,8 +265,9 @@ void Game::Draw()
 	};
 
 	//Define font
-	SDL_Rect Message_rect = { 100, 20, 130, 50 };
-	SDL_Rect seeds_rect = { 100, 80, 100, 50 };
+	SDL_Rect Message_rect = { 100, 20, 162, 50 };
+	SDL_Rect seeds_rect = { 100, 80, 120, 50 };
+	SDL_Rect m_rect = { 800, 20, 20, 50 };
 
 	int time = 0;
 	
@@ -597,11 +610,13 @@ void Game::Draw()
 	{
 		SDL_RenderCopy(Renderer, Message, NULL, &Message_rect);
 		SDL_RenderCopy(Renderer, seeds_day, NULL, &seeds_rect);
+		SDL_RenderCopy(Renderer, m_day, NULL, &m_rect);
 	}
 	if (night == true)
 	{
 		SDL_RenderCopy(Renderer, Message_night, NULL, &Message_rect);
 		SDL_RenderCopy(Renderer, seeds_night, NULL, &seeds_rect);
+		SDL_RenderCopy(Renderer, m_night, NULL, &m_rect);
 	}
 
 
