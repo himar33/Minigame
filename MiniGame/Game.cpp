@@ -206,15 +206,25 @@ bool Game::Update()
 	Player.Move(fx, fy);
 
 	//Recolection update
+	std::stringstream p;
+	p << "Potatoes: " << recolection;
 	std::stringstream s;
-	s << "Potatoes: " << recolection;
+	s << "Seeds: " << seed_r;
 	if (actual < recolection)
 	{
 		actual++;
-		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), Black);
+		surfaceMessage = TTF_RenderText_Solid(tipografy, p.str().c_str(), Black);
 		Message = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
-		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), White);
+		surfaceMessage = TTF_RenderText_Solid(tipografy, p.str().c_str(), White);
 		Message_night = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+	}
+	if (seed_a < seed_r)
+	{
+		seed_a++;
+		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), White);
+		seeds_night = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+		surfaceMessage = TTF_RenderText_Solid(tipografy, s.str().c_str(), Black);
+		seeds_day = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
 	}
 		
 	return false;
@@ -243,7 +253,8 @@ void Game::Draw()
 	};
 
 	//Define font
-	SDL_Rect Message_rect = { 100, 20, 100, 50 };
+	SDL_Rect Message_rect = { 100, 20, 130, 50 };
+	SDL_Rect seeds_rect = { 100, 80, 100, 50 };
 
 	int time = 0;
 	
@@ -585,10 +596,12 @@ void Game::Draw()
 	if (day == true)
 	{
 		SDL_RenderCopy(Renderer, Message, NULL, &Message_rect);
+		SDL_RenderCopy(Renderer, seeds_day, NULL, &seeds_rect);
 	}
 	if (night == true)
 	{
 		SDL_RenderCopy(Renderer, Message_night, NULL, &Message_rect);
+		SDL_RenderCopy(Renderer, seeds_night, NULL, &seeds_rect);
 	}
 
 

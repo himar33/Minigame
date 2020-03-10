@@ -78,9 +78,13 @@ private:
 	SDL_Surface* surfaceMessage;
 	SDL_Texture* Message;
 	SDL_Texture* Message_night;
+	SDL_Texture* seeds_night;
+	SDL_Texture* seeds_day;
 	SDL_Rect Message_rect;
 	int recolection = 0;
 	int actual = -1;
+	int seed_a = -1;
+	int seed_r = 0;
 	
 
 	bool watering[9] = { false, false, false, false, false, false, false, false, false };
