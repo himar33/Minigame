@@ -71,6 +71,9 @@ private:
 	{ true, false, false, false, false, false, false }, { true, false, false, false, false, false, false }, { true, false, false, false, false, false, false } };
 	int life[9] = { 2,2,2,2,2,2,2,2,2 };
 
+	//Shop
+	bool shop = false;
+
 	//UI
 	TTF_Font* tipografy;
 	SDL_Color White;
@@ -83,14 +86,18 @@ private:
 	SDL_Texture* texture_tienda;
 	SDL_Texture* m_night;
 	SDL_Texture* m_day;
+	SDL_Texture* texture_coin;
+	SDL_Texture* text;
 	SDL_Rect Message_rect;
 	int recolection = 0;
 	int actual = -1;
 	int seed_a = -1;
 	int seed_r = 0;
-	int m_a = -1;
-	int m_r = 0;
-	
+	int m_a = 99;
+	int m_r = 100;
+
+	//Win
+	bool win = false;
 
 	bool watering[9] = { false, false, false, false, false, false, false, false, false };
 

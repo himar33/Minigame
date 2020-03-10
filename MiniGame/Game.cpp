@@ -88,6 +88,8 @@ bool Game::Init()
 	texture_watering = SDL_CreateTextureFromSurface(Renderer, surface);
 	surface = IMG_Load("tienda.png");
 	texture_tienda = SDL_CreateTextureFromSurface(Renderer, surface);
+	surface = IMG_Load("coin.png");
+	texture_coin = SDL_CreateTextureFromSurface(Renderer, surface);
 
 	return true;
 }
@@ -110,6 +112,14 @@ void Game::Release()
 	SDL_DestroyTexture(texture_potato5);
 	SDL_DestroyTexture(texture_potato6);
 	SDL_DestroyTexture(texture_watering);
+	SDL_DestroyTexture(texture_tienda);
+	SDL_DestroyTexture(texture_coin);
+	SDL_DestroyTexture(Message);
+	SDL_DestroyTexture(Message_night);
+	SDL_DestroyTexture(seeds_day);
+	SDL_DestroyTexture(seeds_night);
+	SDL_DestroyTexture(m_day);
+	SDL_DestroyTexture(m_night);
 	Mix_Quit();
 	TTF_Quit();
 	IMG_Quit();
@@ -143,7 +153,12 @@ bool Game::Update()
 
 	//Process Input
 	int fx = 0, fy = 0;
-	if (keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN)	return true;
+	if (keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN) {
+		if (shop == false)
+		{
+			return true;
+		}
+	}
 	if (keys[SDL_SCANCODE_UP] == KEY_REPEAT)	fy = -1; up = true;
 	if (keys[SDL_SCANCODE_DOWN] == KEY_REPEAT)	fy = 1; down = true;
 	if (keys[SDL_SCANCODE_LEFT] == KEY_REPEAT)	fx = -1; left = true;
@@ -238,6 +253,27 @@ bool Game::Update()
 		surfaceMessage = TTF_RenderText_Solid(tipografy, m.str().c_str(), Black);
 		m_day = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
 	}
+
+	//Win
+	if (win == true)
+	{
+		int time = 0;
+		SDL_Rect win_rect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+		SDL_Rect text_rect = { WINDOW_WIDTH/2 - 150,  WINDOW_HEIGHT/2 - 25, 400, 50 };
+		std::stringstream t;
+		t << "Congratulations, you win!!!";
+		surfaceMessage = TTF_RenderText_Solid(tipografy, t.str().c_str(), White);
+		text = SDL_CreateTextureFromSurface(Renderer, surfaceMessage);
+		while (time < 2000)
+		{
+			SDL_SetRenderDrawColor(Renderer, 0, 0, 0, 255);
+			SDL_RenderFillRect(Renderer, &win_rect);
+			SDL_RenderCopy(Renderer, text, NULL, &text_rect);
+			time++;
+			SDL_RenderPresent(Renderer);
+		}
+		return true;
+	}
 		
 	return false;
 }
@@ -264,10 +300,14 @@ void Game::Draw()
 	    {610, 730, 60, 60}, {670, 730, 60, 60}, {730, 730, 60, 60} 
 	};
 
-	//Define font
+	//Define UI
 	SDL_Rect Message_rect = { 100, 20, 162, 50 };
 	SDL_Rect seeds_rect = { 100, 80, 120, 50 };
-	SDL_Rect m_rect = { 800, 20, 20, 50 };
+	SDL_Rect m_rect = { 840, 30, 20, 50 }; 
+	SDL_Rect m_rect2 = { 840, 30, 40, 50 };
+	SDL_Rect m_rect3 = { 840, 30, 60, 50 };
+	SDL_Rect coin_rect = { 760, 20, 93, 74 };
+	SDL_Rect shop_rect = { 157, 178, 600, 600 };
 
 	int time = 0;
 	
@@ -304,12 +344,15 @@ void Game::Draw()
 		}
 	}
 
+	//Key Events
 	if (keys[SDL_SCANCODE_SPACE] == KEY_DOWN){
 
-		if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == true)
+		if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == true && seed_r > 0)
 		{
 			potato[0][0] = false;
 			potato[0][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[0][0] == false && potato[0][5] == false)
 		{
@@ -322,10 +365,12 @@ void Game::Draw()
 			recolection++;
 			life[0] = 2;
 		}
-		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true)
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == true && seed_r > 0)
 		{
 			potato[1][0] = false;
 			potato[1][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[1][0] == false && potato[1][5] == false)
 		{
@@ -338,10 +383,12 @@ void Game::Draw()
 			recolection++;
 			life[1] = 2;
 		}
-		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == true)
+		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == true && seed_r > 0)
 		{
 			potato[2][0] = false;
 			potato[2][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 670 - 150 && Player.GetY() > 610 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[2][0] == false && potato[2][5] == false)
 		{
@@ -354,10 +401,12 @@ void Game::Draw()
 			recolection++;
 			life[2] = 2;
 		}
-		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == true)
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == true && seed_r > 0)
 		{
 			potato[3][0] = false;
 			potato[3][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[3][0] == false && potato[3][5] == false)
 		{
@@ -370,10 +419,12 @@ void Game::Draw()
 			recolection++;
 			life[3] = 2;
 		}
-		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == true)
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == true && seed_r > 0)
 		{
 			potato[4][0] = false;
 			potato[4][1] = true;
+			seed_a -= 2;
+			seed_r--;
 
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[4][0] == false && potato[4][5] == false)
@@ -387,10 +438,12 @@ void Game::Draw()
 			recolection++;
 			life[4] = 2;
 		}
-		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == true)
+		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == true && seed_r > 0)
 		{
 			potato[5][0] = false;
 			potato[5][1] = true;
+			seed_a -= 2;
+			seed_r--;
 
 		}
 		else if (Player.GetY() < 730 - 150 && Player.GetY() > 670 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[5][0] == false && potato[5][5] == false)
@@ -404,10 +457,12 @@ void Game::Draw()
 			recolection++;
 			life[5] = 2;
 		}
-		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == true)
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == true && seed_r > 0)
 		{
 			potato[6][0] = false;
 			potato[6][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 610 - 44 && Player.GetX() < 670 - 44 && potato[6][0] == false && potato[6][5] == false)
 		{
@@ -420,10 +475,12 @@ void Game::Draw()
 			recolection++;
 			life[6] = 2;
 		}
-		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == true)
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == true && seed_r > 0)
 		{
 			potato[7][0] = false;
 			potato[7][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 670 - 44 && Player.GetX() < 730 - 44 && potato[7][0] == false && potato[7][5] == false)
 		{
@@ -436,10 +493,12 @@ void Game::Draw()
 			recolection++;
 			life[7] = 2;
 		}
-		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == true)
+		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == true && seed_r > 0)
 		{
 			potato[8][0] = false;
 			potato[8][1] = true;
+			seed_a -= 2;
+			seed_r--;
 		}
 		else if (Player.GetY() < 790 - 150 && Player.GetY() > 730 - 150 && Player.GetX() > 730 - 44 && Player.GetX() < 790 - 44 && potato[8][0] == false && potato[8][5] == false)
 		{
@@ -451,6 +510,43 @@ void Game::Draw()
 			potato[8][0] = true;
 			recolection++;
 			life[8] = 2;
+		}
+		else if (Player.GetY() < 500 - 150 && Player.GetY() > 430 - 150 && Player.GetX() > 710 - 44 && Player.GetX() < 780 - 44)
+		{
+			shop = true;
+		}
+	}
+
+	//Shop key states
+	if (keys[SDL_SCANCODE_ESCAPE] == KEY_DOWN && shop == true)
+	{
+		shop = false;
+	}
+	if (keys[SDL_SCANCODE_1] == KEY_DOWN && shop == true)
+	{
+		if (recolection > 0)
+		{
+			actual -= 2;
+			recolection--;
+			m_r += 4;
+		}
+	}
+	if (keys[SDL_SCANCODE_3] == KEY_DOWN && shop == true)
+	{
+		if (m_r >= 1)
+		{
+			m_a -= 2;
+			seed_r++;
+			m_r--;
+		}
+	}
+	if (keys[SDL_SCANCODE_2] == KEY_DOWN && shop == true)
+	{
+		if (m_r >= 100)
+		{
+			m_a -= 101;
+			m_r -= 100;
+			win = true;
 		}
 	}
 
@@ -605,20 +701,52 @@ void Game::Draw()
 			}
 		}
 	}
+
 	//Interface
+
+	//Draw shop
+	if (shop == true)
+	{
+		SDL_RenderCopy(Renderer, texture_tienda, NULL, &shop_rect);
+	}
+
 	if (day == true)
 	{
 		SDL_RenderCopy(Renderer, Message, NULL, &Message_rect);
 		SDL_RenderCopy(Renderer, seeds_day, NULL, &seeds_rect);
-		SDL_RenderCopy(Renderer, m_day, NULL, &m_rect);
+		if (m_r >= 10 && m_r < 100)
+		{
+			SDL_RenderCopy(Renderer, m_day, NULL, &m_rect2);
+		}
+		else if (m_r >= 100)
+		{
+			SDL_RenderCopy(Renderer, m_day, NULL, &m_rect3);
+		}
+		else
+		{
+			SDL_RenderCopy(Renderer, m_day, NULL, &m_rect);
+		}
 	}
 	if (night == true)
 	{
 		SDL_RenderCopy(Renderer, Message_night, NULL, &Message_rect);
 		SDL_RenderCopy(Renderer, seeds_night, NULL, &seeds_rect);
-		SDL_RenderCopy(Renderer, m_night, NULL, &m_rect);
+		if (m_r >= 10 && m_r < 100)
+		{
+			SDL_RenderCopy(Renderer, m_night, NULL, &m_rect2);
+		}
+		else if (m_r >= 100)
+		{
+			SDL_RenderCopy(Renderer, m_night, NULL, &m_rect3);
+		}
+		else
+		{
+			SDL_RenderCopy(Renderer, m_night, NULL, &m_rect);
+		}
 	}
 
+	//COIN UI
+	SDL_RenderCopy(Renderer, texture_coin, NULL, &coin_rect);
 
 	//Update screen
 	SDL_RenderPresent(Renderer);
